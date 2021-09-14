@@ -22,7 +22,6 @@ class ProgressBar:
         self.Update(value)
 
 
-
     def Draw(self):
         size = get_terminal_size((80, 24))
         string = f"{self.title} {self.leftbracket}{self.filled*self.progress}{self.empty*(self.chunks-self.progress)}{self.rightbracket} ({100*self.ratio:.1f}%)"
@@ -50,7 +49,57 @@ class ProgressBar:
         self.Draw()
         print()
 
-def main(N):
+##### SELECTION MENU #####
+def TestOption(args):
+    print("this is the test option working")
+    return
+
+_OPTIONS = [
+    {"name": "testoption", "aliases": ["test", "t", "testop"], "desc": "This is a test option", "func": TestOption}
+]
+#the default options that are added to every selection menu
+
+def PrintHelp(name, options):
+    print(f"-- {name} help --")
+    for option in options:
+        print(f"{option['name']}: {option['desc']}")
+        print(f"\t{option['aliases']}")
+
+DEFAULTOPTIONS = [
+            {"name": "Quit", "aliases": ["quit", "q"], "desc": "Quits this selection menu", "func":lambda args:-1},
+            {"name": "Help", "aliases": ["help", "h", "?"], "desc": "Displays information about this selection menu", "func":PrintHelp}
+        ]
+
+def SelectionMenu(useroptions, name="Menu", prompt=">"):
+    options = useroptions + DEFAULTOPTIONS
+    checkres = SelectionMenu_CheckOptions(options)
+    if checkres != 0:
+        print(f"SelectionMenu Error: Invalid options; {checkres} is a collision")
+    
+    retval = None 
+    while retval == None:
+        cmd, *args = input(prompt).lower().split(" ")
+        for option in options:
+            if cmd in option["aliases"]:
+                if option["name"] == "Help":
+                    PrintHelp(name, options)
+                else:
+                    retval = option["func"](args)
+
+def SelectionMenu_CheckOptions(options):
+    # if there is a collision in names/aliases, this function returns the first collision it finds
+    # if there are no collisions, it returns 0
+    words = []
+    validOptions = True
+    for option in options:
+        for alias in option["aliases"]:
+            if alias in words:
+                return alias
+            else:
+                words.append(alias)
+    return 0
+
+def test_ProgressBar(N):
     import time
     nobarstart = time.perf_counter()
     n=N
@@ -71,5 +120,12 @@ def main(N):
     barend = time.perf_counter()
     print(f"bar: {barend-barstart}")
 
+def test_SelectionMenu(options):
+    SelectionMenu(options)
+
+def main():
+    #test_ProgressBar(9000000)
+    test_SelectionMenu(_OPTIONS)
+
 if __name__ == "__main__":
-    main(9000000)
+    main()
