@@ -50,21 +50,13 @@ class ProgressBar:
         print()
 
 ##### SELECTION MENU #####
-def TestOption(args):
-    print("this is the test option working")
-    return
-
-_OPTIONS = [
-    {"name": "testoption", "aliases": ["test", "t", "testop"], "desc": "This is a test option", "func": TestOption}
-]
-#the default options that are added to every selection menu
-
 def PrintHelp(name, options):
     print(f"-- {name} help --")
     for option in options:
         print(f"{option['name']}: {option['desc']}")
         print(f"\t{option['aliases']}")
 
+#the default options that are added to every selection menu
 DEFAULTOPTIONS = [
             {"name": "Quit", "aliases": ["quit", "q"], "desc": "Quits this selection menu", "func":lambda args:-1},
             {"name": "Help", "aliases": ["help", "h", "?"], "desc": "Displays information about this selection menu", "func":PrintHelp}
@@ -99,7 +91,8 @@ def SelectionMenu_CheckOptions(options):
                 words.append(alias)
     return 0
 
-def test_ProgressBar(N):
+def test_ProgressBar():
+    N=9999999
     import time
     nobarstart = time.perf_counter()
     n=N
@@ -120,12 +113,17 @@ def test_ProgressBar(N):
     barend = time.perf_counter()
     print(f"bar: {barend-barstart}")
 
-def test_SelectionMenu(options):
+def test_SelectionMenu():
+    def TestOption(args):
+        print("test option's function is working")
+    options = [
+                {"name": "testoption", "desc": "this is a test option", "aliases": ["testoption","test","t","testop"], "func":TestOption}
+            ]
     SelectionMenu(options)
 
 def main():
-    #test_ProgressBar(9000000)
-    test_SelectionMenu(_OPTIONS)
+    #test_ProgressBar()
+    test_SelectionMenu()
 
 if __name__ == "__main__":
     main()
