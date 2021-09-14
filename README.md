@@ -30,7 +30,7 @@ Set up a list of 'options', which are dictionaries with keys
 * `name`: The name of the option
 * `aliases`: A list of all the words that will trigger this option
 * `desc`: A description of the option
-* `func`: The function to be execute upon selecting this option; such a function must take in a single argument `args` which is a list of all words given after the trigger word (e.g. inputting 'test arg1 arg2' makes `args == ['arg1', 'arg2']`; inputting 'test' makes `args == []`).
+* `func`: The function to be executed upon selecting this option; such a function must take in a single argument `args` which is a list of all words given after the trigger word (e.g. inputting 'test arg1 arg2' makes `args == ['arg1', 'arg2']`; inputting 'test' makes `args == []`).
 
 Two options are included by default: 
 "Help", which displays a list of all the options available to this menu; and
