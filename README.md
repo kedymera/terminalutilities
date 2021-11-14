@@ -6,7 +6,7 @@ A set of utilities for use in a terminal.
 ## Progress Bar
 A progress bar used to track the progress of a value from 0 to some maximum value, printing in-place (overwriting) this progress.
 
-### Use
+### Usage
 Initialise the bar by creating a `ProgressBar` object, passing at least a title and a maximum value, then call `Update` with the new value. Once the value has reached its maximum, call `Complete` to finalise the bar and continue with the program.
 
 ### Example
@@ -25,7 +25,7 @@ pb.Complete()
 ## Selection Menu
 A selection menu used to allow the user to execute one of a set of prebuilt commands.
 
-### Use
+### Usage
 Set up a list of 'options', which are dictionaries with keys
 * `name`: The name of the option
 * `aliases`: A list of all the words that will trigger this option
